@@ -15,7 +15,7 @@ db_host=os.environ.get('db_host')
 db_port=os.environ.get('db_port')
 db_name=os.environ.get('db_name')
 
-#extract
+
 
 def get_puuid(summonerId=None, gameName=None, tagLine=None, region="europe"):
     
@@ -48,15 +48,14 @@ def get_idtag_from_puuid(puuid=None):
     
 def get_match_history(region=None, puuid=None, start=0, count=20):
     root_url = f"https://{region}.api.riotgames.com/"
-    endpoint = f'/lol/match/v5/matches/by-puuid/{puuid}/ids'
+    endpoint = f'lol/match/v5/matches/by-puuid/{puuid}/ids'
     query_params = f'?start={start}&count={count}'
     response = requests.get(root_url+endpoint+query_params+'&api_key='+api_key)
-    
     return response.json()
 
 def get_match_data_from_id(region=None, matchId=None):
     root_url = f"https://{region}.api.riotgames.com/"
-    endpoint = f'/lol/match/v5/matches/{matchId}'
+    endpoint = f'lol/match/v5/matches/{matchId}'
     
     while True:
         
@@ -173,8 +172,6 @@ def process_match_json(match_json, puuid):
     return matchDF
 
 
-
-
 match_ids = get_match_history(region="asia", puuid="qOK6JG8vkCv-JwMF_ynePiFTUkwnrAyw2CmeTs2HRfiEdv43bOu5-Bu9ir4GLgQTXvA6fha_Ny5LeQ")
 
 df = pd.DataFrame()
@@ -222,8 +219,7 @@ for match_id in match_ids4:
     
 df = pd.concat([df,df1,df2,df3,df4],ignore_index=True)
     
-#transform
-
+    
 item = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
 perk = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"
 perk_style = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json"
@@ -265,12 +261,10 @@ perk_dict = dict(map(lambda i, j : (int(i),j),perk_ids, perk_names))
 perk_style_dict = dict(map(lambda i, j : (int(i),j),perk_style_ids, perk_style_names))
 
 
+# print(df)
+# df= df[['item0','item1','item2','item3','item4','item5','item6']].replace(item_dict)
+# df = df[['primary_keystone', 'primary_perk_1','primary_perk_2','primary_perk_3','secondary_perk_1','secondary_perk_2','offense','flex','defense']].replace(perk_dict)
 
-df= df.replace(item_dict)
-df = df.replace(perk_dict)
-df = df.replace(perk_style_dict)
-
-#load
 
 
 def create_db_connection_string(db_username, db_password, db_host, db_port, db_name):
