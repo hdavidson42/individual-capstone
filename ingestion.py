@@ -15,6 +15,8 @@ db_host=os.environ.get('db_host')
 db_port=os.environ.get('db_port')
 db_name=os.environ.get('db_name')
 
+#extract
+
 def get_puuid(summonerId=None, gameName=None, tagLine=None, region="europe"):
     
     if summonerId is not None:
@@ -171,6 +173,8 @@ def process_match_json(match_json, puuid):
     return matchDF
 
 
+
+
 match_ids = get_match_history(region="asia", puuid="qOK6JG8vkCv-JwMF_ynePiFTUkwnrAyw2CmeTs2HRfiEdv43bOu5-Bu9ir4GLgQTXvA6fha_Ny5LeQ")
 
 df = pd.DataFrame()
@@ -218,7 +222,8 @@ for match_id in match_ids4:
     
 df = pd.concat([df,df1,df2,df3,df4],ignore_index=True)
     
-    
+#transform
+
 item = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
 perk = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"
 perk_style = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perkstyles.json"
@@ -264,6 +269,8 @@ perk_style_dict = dict(map(lambda i, j : (int(i),j),perk_style_ids, perk_style_n
 df= df.replace(item_dict)
 df = df.replace(perk_dict)
 df = df.replace(perk_style_dict)
+
+#load
 
 
 def create_db_connection_string(db_username, db_password, db_host, db_port, db_name):
