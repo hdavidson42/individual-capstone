@@ -1,5 +1,5 @@
 import streamlit as st
-from sqlalchemy import text, create_engine
+from sqlalchemy import create_engine
 from dotenv import load_dotenv
 import os
 import pandas as pd
@@ -31,11 +31,6 @@ def load_data():
     FROM student.lol_analytics
     """
     return pd.read_sql_query(query, con=db_engine)
-
-LOAD_QUERY_FILES = {
-    'player_champ_win_rate': os.path.join(
-        '.','sql', 'player_champ_win_rate.sql')
-}
 
 
 def json_extract(obj, key):
