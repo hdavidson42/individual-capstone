@@ -7,11 +7,11 @@ import altair as alt
 
 
 
-db_username=st.secrets('db_username')
-db_password=st.secrets('db_password')
-db_host=st.secrets('db_host')
-db_port=st.secrets('db_port')
-db_name=st.secrets('db_name')
+db_username=st.secrets['db_username']
+db_password=st.secrets['db_password']
+db_host=st.secrets['db_host']
+db_port=st.secrets['db_port']
+db_name=st.secrets['db_name']
 
 item = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/items.json"
 perk = "https://raw.communitydragon.org/latest/plugins/rcp-be-lol-game-data/global/default/v1/perks.json"
